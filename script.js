@@ -1,12 +1,3 @@
-//this is for the website, nothing else.
-function jst_initsite(){
-    for (var i = 0; i < window.speechSynthesis.getVoices().length; i++) {
-        var option = document.createElement("option");
-        option.text = window.speechSynthesis.getVoices()[i].name;
-        option.value = window.speechSynthesis.getVoices()[i].lang;
-        document.getElementById('voices').appendChild(option);
-    }
-}
 stat = document.getElementById('status')
 function jst_speak(){
     if(speechSynthesis in window){
@@ -23,7 +14,7 @@ function jst_speak(){
           
         window.speechSynthesis.resume()
         window.speechSynthesis.speak(jst_synth);
-        stat.innerHTML="synthesizing<br><button onclick='jst_stop()'>stop</button>"
+        stat.innerHTML="speaking<br><button onclick='jst_stop()' title='..or press c'>stop</button>"
     } 
 }
 function jst_stop(){
@@ -35,4 +26,12 @@ function revert_vals(){
     document.getElementById('pitch').value=1.0
     document.getElementById('speed').value=1.0
 }
-jst_initsite()
+//get voices
+for (var i = 0; i < window.speechSynthesis.getVoices().length; i++) {
+    var option = document.createElement("option");
+    option.text = window.speechSynthesis.getVoices()[i].name;
+    option.value = window.speechSynthesis.getVoices()[i].lang;
+    document.getElementById('voices').appendChild(option);
+}
+// shortcuts
+document.addEventListener("keydown", function(e) { if (e.target.nodeName !== "TEXTAREA") { switch (e.key) {case "p":jst_speak();break;case "c":jst_stop();break;default:break;}}});
