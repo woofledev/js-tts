@@ -1,4 +1,15 @@
 stat = document.getElementById('status')
+function jst_init(){
+    //get voices
+    for (var i = 0; i < window.speechSynthesis.getVoices().length; i++) {
+        var option = document.createElement("option");
+        option.text = window.speechSynthesis.getVoices()[i].name;
+        option.value = window.speechSynthesis.getVoices()[i].lang;
+        document.getElementById('voices').appendChild(option);
+    }
+    // shortcuts
+    document.addEventListener("keydown", function(e) { if (e.target.nodeName !== "TEXTAREA") { switch (e.key) {case "p":jst_speak();break;case "c":jst_stop();break;default:break;}}});
+}
 function jst_speak(){
     if(speechSynthesis in window){
         stat.innerHTML="sorry, your browser doesn't support speechsynthesis."
@@ -26,12 +37,4 @@ function revert_vals(){
     document.getElementById('pitch').value=1.0
     document.getElementById('speed').value=1.0
 }
-//get voices
-for (var i = 0; i < window.speechSynthesis.getVoices().length; i++) {
-    var option = document.createElement("option");
-    option.text = window.speechSynthesis.getVoices()[i].name;
-    option.value = window.speechSynthesis.getVoices()[i].lang;
-    document.getElementById('voices').appendChild(option);
-}
-// shortcuts
-document.addEventListener("keydown", function(e) { if (e.target.nodeName !== "TEXTAREA") { switch (e.key) {case "p":jst_speak();break;case "c":jst_stop();break;default:break;}}});
+jst_init()
