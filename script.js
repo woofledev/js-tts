@@ -7,8 +7,6 @@ function jst_init(){
         option.value = window.speechSynthesis.getVoices()[i].lang;
         document.getElementById('voices').appendChild(option);
     }
-    // shortcuts
-    document.addEventListener("keydown", function(e) { if (e.target.nodeName !== "TEXTAREA") { switch (e.key) {case "p":jst_speak();break;case "c":jst_stop();break;default:break;}}});
 }
 function jst_speak(){
     if(speechSynthesis in window){
@@ -37,4 +35,8 @@ function revert_vals(){
     document.getElementById('pitch').value=1.0
     document.getElementById('speed').value=1.0
 }
+
+// shortcuts
+document.addEventListener("keydown", function(e) { if (e.target.nodeName !== "TEXTAREA") { switch (e.key) {case "p":jst_speak();break;case "c":jst_stop();break;default:break;}}});
+//
 jst_init()
