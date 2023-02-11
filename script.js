@@ -37,6 +37,5 @@ function revert_vals(){
 }
 
 // shortcuts
-document.addEventListener("keydown", function(e) { if (e.target.nodeName !== "TEXTAREA") { switch (e.key) {case "p":jst_speak();break;case "c":jst_stop();break;default:break;}}});
-//
+document.addEventListener("keydown", function(e) { if (e.target.nodeName !== "TEXTAREA") { switch (e.key) {case "s":jst_speak();break;case "c":jst_stop();break;default:break;}}});
 jst_init()
