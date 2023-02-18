@@ -38,4 +38,6 @@ function revert_vals(){
 
 // shortcuts
 document.addEventListener("keydown", function(e) { if (e.target.nodeName !== "TEXTAREA") { switch (e.key) {case "s":jst_speak();break;case "c":jst_stop();break;default:break;}}});
+// url parameter thing (?text=some+text)
+if(new URLSearchParams(window.location.search).get('text')){document.getElementById("textspeech").value=new URLSearchParams(window.location.search).get('text')}
 jst_init()
