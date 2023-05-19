@@ -7,10 +7,11 @@ function jst_init(){
         option.value = window.speechSynthesis.getVoices()[i].lang;
         document.getElementById('voices').appendChild(option);
     }
+    console.log("got voices");
 }
 function jst_speak(){
-    if(speechSynthesis in window){
-        stat.innerHTML="sorry, your browser doesn't support speechsynthesis."
+    if('speechSynthesis' in window){
+        stat.innerHTML="sorry, but your browser doesn't support the speechsynthesis api.";
     } else {
         var jst_synth = new SpeechSynthesisUtterance();
         jst_synth.text=document.getElementById("textspeech").value
@@ -19,16 +20,18 @@ function jst_speak(){
         jst_synth.rate=document.getElementById('speed').value
         if(document.getElementById('voices').options.length===0){jst_synth.voice=null;}else{jst_synth.voice = window.speechSynthesis.getVoices().filter(function(voice) { 
             return voice.name === document.getElementById('voices').options[document.getElementById('voices').selectedIndex].text;
-          })[0]};
-          
-        window.speechSynthesis.resume()
+        })[0]};
+        console.log(`jst_synth config: volume ${jst_synth.volume}, pitch ${jst_synth.pitch}, rate ${jst_synth.rate}, voice ${jst_synth.voice}`);
+        window.speechSynthesis.resume();
         window.speechSynthesis.speak(jst_synth);
+        console.log("requested speechSynthesys to speak");
         stat.innerHTML="speaking<br><button onclick='jst_stop()' title='..or press c'>stop</button>"
     } 
 }
 function jst_stop(){
     window.speechSynthesis.cancel();
-    stat.innerHTML="stopped synth"
+    console.log("cancelled speechSynthesis");
+    stat.innerHTML="stopped synth";
 }
 function revert_vals(){
     document.getElementById('vol').value=0.7
