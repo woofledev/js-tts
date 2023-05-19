@@ -11,8 +11,6 @@ function jst_init(){
 }
 function jst_speak(){
     if('speechSynthesis' in window){
-        stat.innerHTML="sorry, but your browser doesn't support the speechsynthesis api.";
-    } else {
         var jst_synth = new SpeechSynthesisUtterance();
         jst_synth.text=document.getElementById("textspeech").value
         jst_synth.volume=document.getElementById('vol').value
@@ -24,13 +22,15 @@ function jst_speak(){
         console.log(`jst_synth config: volume ${jst_synth.volume}, pitch ${jst_synth.pitch}, rate ${jst_synth.rate}, voice ${jst_synth.voice}`);
         window.speechSynthesis.resume();
         window.speechSynthesis.speak(jst_synth);
-        console.log("requested speechSynthesys to speak");
-        stat.innerHTML="speaking<br><button onclick='jst_stop()' title='..or press c'>stop</button>"
+        console.log("requested speechSynthesis to speak");
+        stat.innerHTML="speaking<br><button onclick='jst_stop()' title='..or press c'>stop</button>";
+    } else {
+        stat.innerHTML="sorry, but your browser doesn't support the speechsynthesis api.";
     } 
 }
 function jst_stop(){
     window.speechSynthesis.cancel();
-    console.log("cancelled speechSynthesis");
+    console.log("cancelled speechsynthesis for window");
     stat.innerHTML="stopped synth";
 }
 function revert_vals(){
